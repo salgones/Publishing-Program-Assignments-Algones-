@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JavaScript Programming Activities | CS-1130</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blush: #fff0f5;
+    --petal: #ffd6e5;
+    --rose: #ff7fae;
+    --berry: #d6336c;
+    --wine: #5c1030;
+    --white: #ffffff;
+    --shadow: 0 6px 18px rgba(214, 51, 108, .15);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: "Nunito", system-ui, sans-serif;
+    background: var(--blush);
+    color: var(--wine);
+    line-height: 1.6;
+  }
+  h1, h2, h3 { font-family: "Fraunces", Georgia, serif; line-height: 1.15; margin: 0 0 .5em; }
+  a { color: var(--berry); }
+
+  header {
+    background: var(--berry);
+    color: var(--white);
+    padding: 56px 20px 40px;
+    text-align: center;
+    background-image: radial-gradient(circle at 15% 20%, var(--rose) 0, transparent 40%),
+                      radial-gradient(circle at 85% 80%, #ff9fc4 0, transparent 38%);
+  }
+  header h1 { font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 800; }
+  header p { max-width: 640px; margin: 0 auto 8px; }
+  .course { font-weight: 700; opacity: .95; }
+
+  nav {
+    position: sticky; top: 0; z-index: 5;
+    background: var(--white);
+    box-shadow: var(--shadow);
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 18px;
+    padding: 10px 16px;
+  }
+  nav a { text-decoration: none; font-weight: 700; padding: 4px 8px; border-radius: 8px; }
+  nav a:hover, nav a:focus-visible { background: var(--petal); outline: none; }
+
+  main { max-width: 980px; margin: 0 auto; padding: 28px 16px 60px; }
+  section {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 28px;
+    margin-bottom: 28px;
+    box-shadow: var(--shadow);
+    border-top: 6px solid var(--rose);
+    scroll-margin-top: 70px;
+  }
+  section h2 { font-size: 1.7rem; color: var(--berry); }
+  .desc { margin-top: 0; }
+
+
+  label { display: block; font-weight: 700; margin: 12px 0 4px; }
+  input, select {
+    width: 100%; padding: 10px 12px; font: inherit; color: var(--wine);
+    border: 2px solid var(--petal); border-radius: 10px; background: var(--blush);
+  }
+  input:focus, select:focus, button:focus-visible { outline: 3px solid var(--rose); outline-offset: 1px; }
+  button {
+    font: inherit; font-weight: 700; cursor: pointer;
+    background: var(--berry); color: var(--white);
+    border: 0; border-radius: 10px; padding: 10px 20px; margin-top: 14px; margin-right: 8px;
+  }
+  button:hover { background: #b82a5c; }
+  button.alt { background: var(--petal); color: var(--berry); }
+  button.alt:hover { background: #ffc2d9; }
+
+  .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0 16px; }
+  .result {
+    margin-top: 16px; padding: 14px 16px; border-radius: 12px;
+    background: var(--blush); border-left: 6px solid var(--rose); min-height: 24px;
+  }
+  .result.error { border-left-color: #c0143c; background: #ffe3e8; color: #8a0d2b; }
+  .result strong { color: var(--berry); }
+
+  .scroll { overflow-x: auto; margin-top: 14px; }
+  table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--petal); }
+  th { background: var(--petal); color: var(--wine); }
+  td.num, th.num { text-align: right; }
+  tr.hit td { background: #ffe3ee; font-weight: 700; }
+  tfoot td { font-weight: 800; color: var(--berry); }
+
+  footer { text-align: center; padding: 26px 16px; background: var(--wine); color: var(--petal); }
+
+  @media (max-width: 640px) {
+    section { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>JavaScript Programming Activities</h1>
+  <p class="course">CS-1130 Introduction to Computing &middot; SEM 1 2026 &middot; GERALDE</p>
+  <p>A simple, interactive website built with HTML, CSS, and JavaScript. It holds four programming assignments that show basic programming concepts through calculators and small programs.</p>
+  <p class="course">By Shayne Algones of BS Data Science 1-A</p>
+</header>
+
+<nav aria-label="Sections">
+  <a href="#a1">Assignment 1</a>
+  <a href="#a2">Assignment 2</a>
+  <a href="#a3">Assignment 3</a>
+  <a href="#a4">Assignment 4</a>
+</nav>
+
+<main>
+
+
+  <!-- ASSIGNMENT 1 -->
+  <section id="a1">
+    <h2>Assignment 1: Conversion</h2>
+    <p class="desc">Convert Celsius to Fahrenheit, Fahrenheit to Celsius, meters to feet, and feet to meters.</p>
+    <div class="row">
+      <div>
+        <label for="convType">Conversion</label>
+        <select id="convType">
+          <option value="c2f">Celsius to Fahrenheit</option>
+          <option value="f2c">Fahrenheit to Celsius</option>
+          <option value="m2ft">Meters to Feet</option>
+          <option value="ft2m">Feet to Meters</option>
+        </select>
+      </div>
+      <div>
+        <label for="convValue">Value</label>
+        <input type="number" id="convValue" step="any" placeholder="Enter a number">
+      </div>
+    </div>
+    <button type="button" id="convBtn">Convert</button>
+    <div class="result" id="convResult" aria-live="polite">Pick a conversion and enter a value.</div>
+  </section>
+
+  <!-- ASSIGNMENT 2 -->
+  <section id="a2">
+    <h2>Assignment 2: Income Tax Calculator</h2>
+    <p class="desc">Enter the net taxable income. Income Tax = Basic Tax + Rate &times; the excess over the lower limit.</p>
+    <label for="taxIncome">Net taxable income (PHP)</label>
+    <input type="number" id="taxIncome" min="0" step="any" placeholder="e.g. 520000">
+    <button type="button" id="taxBtn">Compute tax</button>
+    <button type="button" class="alt" id="taxClear">Clear</button>
+    <div class="result" id="taxResult" aria-live="polite">Enter an amount to see the income tax.</div>
+
+    <div class="scroll">
+      <table id="taxTable">
+        <thead>
+          <tr><th>Over</th><th>But not over</th><th>Basic tax + rate</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>-</td><td>P250,000</td><td>0%</td></tr>
+          <tr><td>P250,000</td><td>P400,000</td><td>20% of the excess over P250,000</td></tr>
+          <tr><td>P400,000</td><td>P800,000</td><td>P30,000 + 25% of the excess over P400,000</td></tr>
+          <tr><td>P800,000</td><td>P2,000,000</td><td>P130,000 + 30% of the excess over P800,000</td></tr>
+          <tr><td>P2,000,000</td><td>P8,000,000</td><td>P490,000 + 32% of the excess over P2,000,000</td></tr>
+          <tr><td>P8,000,000</td><td>-</td><td>P2,410,000 + 35% of the excess over P8,000,000</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ASSIGNMENT 3 -->
+  <section id="a3">
+    <h2>Assignment 3: Factorial, Sum, and Average</h2>
+    <p class="desc">For the first N natural numbers: Factorial uses a <em>while</em> loop, Sum uses a <em>do-while</em> loop, and Average uses a <em>for</em> loop.</p>
+    <label for="loopN">N (a whole number from 1 to 170)</label>
+    <input type="number" id="loopN" min="1" max="170" step="1" placeholder="e.g. 5">
+    <button type="button" id="loopBtn">Calculate</button>
+    <div class="result" id="loopResult" aria-live="polite">Enter N to see the results.</div>
+  </section>
+
+  <!-- ASSIGNMENT 4 -->
+  <section id="a4">
+    <h2>Assignment 4: Simple Payroll</h2>
+    <p class="desc">Add or delete employees in the payroll list. Gross Pay = Days Worked &times; Daily Rate. Net Pay = Gross Pay &minus; Deduction Amount.</p>
+    <div class="row">
+      <div>
+        <label for="empName">Employee name</label>
+        <input type="text" id="empName" placeholder="e.g. Maria Santos">
+      </div>
+      <div>
+        <label for="empDays">Days worked</label>
+        <input type="number" id="empDays" min="0" step="any">
+      </div>
+      <div>
+        <label for="empRate">Daily rate</label>
+        <input type="number" id="empRate" min="0" step="any">
+      </div>
+      <div>
+        <label for="empDed">Deduction amount</label>
+        <input type="number" id="empDed" min="0" step="any" value="0">
+      </div>
+    </div>
+    <button type="button" id="addBtn">Add employee</button>
+    <div class="result" id="payMsg" aria-live="polite">Fill in the form and add an employee.</div>
+
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>No.</th><th>Employee name</th>
+            <th class="num">Days worked</th><th class="num">Daily rate</th>
+            <th class="num">Gross pay</th><th class="num">Deduction amount</th><th class="num">Net pay</th>
+          </tr>
+        </thead>
+        <tbody id="payBody">
+          <tr><td colspan="7">No employees yet.</td></tr>
+        </tbody>
+        <tfoot id="payFoot"></tfoot>
+      </table>
+    </div>
+
+    <div class="row" style="margin-top:10px">
+      <div>
+        <label for="delLine">Line number to delete</label>
+        <input type="number" id="delLine" min="1" step="1" placeholder="e.g. 2">
+      </div>
+    </div>
+    <button type="button" class="alt" id="delBtn">Delete employee</button>
+  </section>
+
+</main>
+
+<footer>
+  <p>CS-1130 Introduction to Computing &middot; SEM 1 2026 &middot; JavaScript Programming Activities</p>
+</footer>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+  const peso = (n) => "P" + n.toLocaleString("en-PH", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const fmt = (n) => Number(n.toFixed(4)).toLocaleString("en-US", { maximumFractionDigits: 4 });
+
+  function show(el, html, isError) {
+    el.innerHTML = html;
+    el.classList.toggle("error", !!isError);
+  }
+
+  /* ---------- Assignment 1: Conversion ---------- */
+  $("convBtn").addEventListener("click", () => {
+    const out = $("convResult");
+    const raw = $("convValue").value;
+    if (raw === "" || isNaN(raw)) return show(out, "Enter a valid number.", true);
+    const v = parseFloat(raw);
+    const type = $("convType").value;
+    let r, text;
+    if (type === "c2f")      { r = v * 9 / 5 + 32;  text = `${fmt(v)} &deg;C = <strong>${fmt(r)} &deg;F</strong>`; }
+    else if (type === "f2c") { r = (v - 32) * 5 / 9; text = `${fmt(v)} &deg;F = <strong>${fmt(r)} &deg;C</strong>`; }
+    else if (type === "m2ft"){ r = v * 3.28084;      text = `${fmt(v)} m = <strong>${fmt(r)} ft</strong>`; }
+    else                     { r = v / 3.28084;      text = `${fmt(v)} ft = <strong>${fmt(r)} m</strong>`; }
+    show(out, text);
+  });
+
+  /* ---------- Assignment 2: Income Tax ---------- */
+  const brackets = [
+    { over: 0,       upTo: 250000,   base: 0,       rate: 0 },
+    { over: 250000,  upTo: 400000,   base: 0,       rate: 0.20 },
+    { over: 400000,  upTo: 800000,   base: 30000,   rate: 0.25 },
+    { over: 800000,  upTo: 2000000,  base: 130000,  rate: 0.30 },
+    { over: 2000000, upTo: 8000000,  base: 490000,  rate: 0.32 },
+    { over: 8000000, upTo: Infinity, base: 2410000, rate: 0.35 }
+  ];
+
+  function computeTax(income) {
+    for (let i = 0; i < brackets.length; i++) {
+      const b = brackets[i];
+      if (income <= b.upTo) {
+        return { tax: b.base + (income - b.over) * b.rate, row: i, b };
+      }
+    }
+  }
+
+  $("taxBtn").addEventListener("click", () => {
+    const out = $("taxResult");
+    const raw = $("taxIncome").value;
+    document.querySelectorAll("#taxTable tbody tr").forEach(tr => tr.classList.remove("hit"));
+    if (raw === "" || isNaN(raw) || parseFloat(raw) < 0) {
+      return show(out, "Enter a taxable income of 0 or more.", true);
+    }
+    const income = parseFloat(raw);
+    const { tax, row, b } = computeTax(income);
+    document.querySelectorAll("#taxTable tbody tr")[row].classList.add("hit");
+    const excess = Math.max(income - b.over, 0);
+    const formula = b.rate === 0
+      ? "Income is within the 0% bracket."
+      : `${peso(b.base)} + ${b.rate * 100}% of ${peso(excess)} (the excess over ${peso(b.over)})`;
+    show(out, `Taxable income: ${peso(income)}<br>${formula}<br>Income tax: <strong>${peso(tax)}</strong>`);
+  });
+
+  $("taxClear").addEventListener("click", () => {
+    $("taxIncome").value = "";
+    document.querySelectorAll("#taxTable tbody tr").forEach(tr => tr.classList.remove("hit"));
+    show($("taxResult"), "Enter an amount to see the income tax.");
+  });
+
+  /* ---------- Assignment 3: Factorial / Sum / Average ---------- */
+  $("loopBtn").addEventListener("click", () => {
+    const out = $("loopResult");
+    const raw = $("loopN").value;
+    const n = Number(raw);
+    if (raw === "" || !Number.isInteger(n) || n < 1 || n > 170) {
+      return show(out, "Enter a whole number from 1 to 170.", true);
+    }
+
+    // Factorial with a while loop
+    let fact = 1, i = 1;
+    while (i <= n) { fact *= i; i++; }
+
+    // Sum with a do-while loop
+    let sum = 0, j = 1;
+    do { sum += j; j++; } while (j <= n);
+
+    // Average with a for loop (running total, then divide by N)
+    let total = 0;
+    for (let k = 1; k <= n; k++) { total += k; }
+    const avg = total / n;
+
+    const factText = Number.isFinite(fact) && fact < 1e21
+      ? fact.toLocaleString("en-US")
+      : fact.toExponential(6);
+
+    show(out,
+      `Factorial of ${n} (while loop): <strong>${factText}</strong><br>` +
+      `Sum of 1 to ${n} (do-while loop): <strong>${sum.toLocaleString("en-US")}</strong><br>` +
+      `Average of 1 to ${n} (for loop): <strong>${fmt(avg)}</strong>`);
+  });
+
+  /* ---------- Assignment 4: Simple Payroll ---------- */
+  const payroll = [];
+
+  function renderPayroll() {
+    const body = $("payBody"), foot = $("payFoot");
+    if (payroll.length === 0) {
+      body.innerHTML = '<tr><td colspan="7">No employees yet.</td></tr>';
+      foot.innerHTML = "";
+      return;
+    }
+    body.innerHTML = payroll.map((e, idx) => {
+      const gross = e.days * e.rate;
+      const net = gross - e.ded;
+      return `<tr>
+        <td>${idx + 1}</td>
+        <td>${e.name}</td>
+        <td class="num">${e.days}</td>
+        <td class="num">${peso(e.rate)}</td>
+        <td class="num">${peso(gross)}</td>
+        <td class="num">${peso(e.ded)}</td>
+        <td class="num">${peso(net)}</td>
+      </tr>`;
+    }).join("");
+    const totalNet = payroll.reduce((s, e) => s + e.days * e.rate - e.ded, 0);
+    foot.innerHTML = `<tr><td colspan="6">Total net pay</td><td class="num">${peso(totalNet)}</td></tr>`;
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  }
+
+  $("addBtn").addEventListener("click", () => {
+    const msg = $("payMsg");
+    const name = $("empName").value.trim();
+    const days = parseFloat($("empDays").value);
+    const rate = parseFloat($("empRate").value);
+    const ded = $("empDed").value === "" ? 0 : parseFloat($("empDed").value);
+
+    if (!name) return show(msg, "Enter the employee name.", true);
+    if (isNaN(days) || days < 0) return show(msg, "Enter the days worked (0 or more).", true);
+    if (isNaN(rate) || rate < 0) return show(msg, "Enter the daily rate (0 or more).", true);
+    if (isNaN(ded) || ded < 0) return show(msg, "Enter the deduction amount (0 or more).", true);
+    if (ded > days * rate) return show(msg, "The deduction is higher than the gross pay. Lower the deduction.", true);
+
+    payroll.push({ name: escapeHtml(name), days, rate, ded });
+    renderPayroll();
+    show(msg, `Added <strong>${escapeHtml(name)}</strong> as line ${payroll.length}.`);
+    $("empName").value = "";
+    $("empDays").value = "";
+    $("empRate").value = "";
+    $("empDed").value = "0";
+    $("empName").focus();
+  });
+
+  $("delBtn").addEventListener("click", () => {
+    const msg = $("payMsg");
+    const line = Number($("delLine").value);
+    if ($("delLine").value === "" || !Number.isInteger(line) || line < 1 || line > payroll.length) {
+      return show(msg, payroll.length === 0
+        ? "The list is empty. Add an employee first."
+        : `Enter a line number from 1 to ${payroll.length}.`, true);
+    }
+    const [removed] = payroll.splice(line - 1, 1);
+    renderPayroll();
+    show(msg, `Deleted line ${line} (<strong>${removed.name}</strong>). The list is renumbered.`);
+    $("delLine").value = "";
+  });
+</script>
+</body>
+</html>
