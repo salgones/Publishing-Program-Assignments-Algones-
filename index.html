@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Calculator Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <p class="eyebrow">A collection of useful tools</p>
+        <h1>Calculator Hub</h1>
+        <p class="intro">Choose a calculator to get started.</p>
+      </div>
+    </header>
+
+    <main class="container">
+      <nav class="calculator-nav" aria-label="Calculators">
+        <button class="nav-button active" type="button" data-section="conversion" aria-pressed="true">Conversion</button>
+        <button class="nav-button" type="button" data-section="income-tax" aria-pressed="false">Income Tax</button>
+        <button class="nav-button" type="button" data-section="factorial" aria-pressed="false">Factorial, Sum &amp; Average</button>
+        <button class="nav-button" type="button" data-section="payroll" aria-pressed="false">Simple Payroll</button>
+      </nav>
+
+      <div class="calculator-panel">
+        <section class="calculator-section" id="conversion" aria-labelledby="conversion-title">
+          <p class="section-number">01</p>
+          <h2 id="conversion-title">Conversion Calculator</h2>
+          <p>Choose a conversion, enter a value, and calculate the result.</p>
+          <form id="conversion-form" class="calculator-form">
+            <label>
+              Conversion type
+              <select id="conversion-type">
+                <option value="c-to-f">Celsius to Fahrenheit</option>
+                <option value="f-to-c">Fahrenheit to Celsius</option>
+                <option value="m-to-ft">Meters to Feet</option>
+                <option value="ft-to-m">Feet to Meters</option>
+              </select>
+            </label>
+            <label>
+              Value
+              <input id="conversion-value" type="number" step="any" required>
+            </label>
+            <button class="action-button" type="submit">Convert</button>
+          </form>
+          <p class="result" id="conversion-result" aria-live="polite"></p>
+        </section>
+
+        <section class="calculator-section" id="income-tax" aria-labelledby="income-tax-title" hidden>
+          <p class="section-number">02</p>
+          <h2 id="income-tax-title">Income Tax Calculator</h2>
+          <p>Enter your net taxable income in pesos. Tax is calculated using the provided tax brackets.</p>
+          <form id="tax-form" class="calculator-form">
+            <label>
+              Net taxable income (₱)
+              <input id="taxable-income" type="number" min="0" step="any" required>
+            </label>
+            <button class="action-button" type="submit">Calculate tax</button>
+          </form>
+          <p class="result" id="tax-result" aria-live="polite"></p>
+          <div class="table-wrap">
+            <table class="tax-table">
+              <caption>Income tax brackets used</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Net taxable income</th>
+                  <th scope="col">Income tax</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>₱250,000 and below</td><td>0%</td></tr>
+                <tr><td>Over ₱250,000 to ₱400,000</td><td>20% of excess over ₱250,000</td></tr>
+                <tr><td>Over ₱400,000 to ₱800,000</td><td>₱30,000 + 25% of excess over ₱400,000</td></tr>
+                <tr><td>Over ₱800,000 to ₱2,000,000</td><td>₱130,000 + 30% of excess over ₱800,000</td></tr>
+                <tr><td>Over ₱2,000,000 to ₱8,000,000</td><td>₱490,000 + 32% of excess over ₱2,000,000</td></tr>
+                <tr><td>Over ₱8,000,000</td><td>₱2,410,000 + 35% of excess over ₱8,000,000</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="calculator-section" id="factorial" aria-labelledby="factorial-title" hidden>
+          <p class="section-number">03</p>
+          <h2 id="factorial-title">Factorial, Sum &amp; Average</h2>
+          <p>Each calculator uses the integers from 1 through your number. Enter a whole number in the range shown.</p>
+          <div class="loop-calculators">
+            <form id="factorial-form" class="loop-card">
+              <h3>Factorial</h3>
+              <p>Calculates n! using a while loop. 0! is 1.</p>
+              <label>
+                Whole number (0–1000)
+                <input id="factorial-value" type="number" min="0" max="1000" step="1" required>
+              </label>
+              <button class="action-button" type="submit">Calculate factorial</button>
+              <p class="result" id="factorial-result" aria-live="polite"></p>
+            </form>
+            <form id="sum-form" class="loop-card">
+              <h3>Sum</h3>
+              <p>Calculates 1 + 2 + … + n using a do-while loop.</p>
+              <label>
+                Whole number (0–1,000,000)
+                <input id="sum-value" type="number" min="0" max="1000000" step="1" required>
+              </label>
+              <button class="action-button" type="submit">Calculate sum</button>
+              <p class="result" id="sum-result" aria-live="polite"></p>
+            </form>
+            <form id="average-form" class="loop-card">
+              <h3>Average</h3>
+              <p>Calculates the average of 1 through n using a for loop.</p>
+              <label>
+                Whole number (1–1,000,000)
+                <input id="average-value" type="number" min="1" max="1000000" step="1" required>
+              </label>
+              <button class="action-button" type="submit">Calculate average</button>
+              <p class="result" id="average-result" aria-live="polite"></p>
+            </form>
+          </div>
+        </section>
+
+        <section class="calculator-section" id="payroll" aria-labelledby="payroll-title" hidden>
+          <p class="section-number">04</p>
+          <h2 id="payroll-title">Simple Payroll</h2>
+          <p>Add employees to the payroll list, or delete an employee by their current line number.</p>
+          <form id="payroll-form" class="payroll-form">
+            <label>
+              Employee name
+              <input id="employee-name" type="text" required>
+            </label>
+            <label>
+              Days worked
+              <input id="days-worked" type="number" min="0" step="any" required>
+            </label>
+            <label>
+              Daily rate (₱)
+              <input id="daily-rate" type="number" min="0" step="any" required>
+            </label>
+            <label>
+              Deduction amount (₱)
+              <input id="deduction-amount" type="number" min="0" step="any" required>
+            </label>
+            <button class="action-button" type="submit">Add employee</button>
+          </form>
+          <p class="result" id="payroll-message" aria-live="polite"></p>
+
+          <form id="delete-employee-form" class="delete-form">
+            <label>
+              Line number to delete
+              <input id="delete-line-number" type="number" min="1" step="1" required>
+            </label>
+            <button class="action-button secondary-button" type="submit">Delete employee</button>
+          </form>
+
+          <div class="table-wrap">
+            <table class="payroll-table">
+              <caption>Payroll list</caption>
+              <thead>
+                <tr>
+                  <th scope="col">No.</th>
+                  <th scope="col">Employee name</th>
+                  <th scope="col">Days worked</th>
+                  <th scope="col">Daily rate</th>
+                  <th scope="col">Gross pay</th>
+                  <th scope="col">Deduction amount</th>
+                  <th scope="col">Net pay</th>
+                </tr>
+              </thead>
+              <tbody id="payroll-rows">
+                <tr class="empty-row"><td colspan="7">No employees in the payroll list yet.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
